@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, auth
 from django.db.models import Q
 
 
-
+from django.conf import settings
 #for aes implementation
 import unittest
 import base64
@@ -157,7 +157,7 @@ def encryptanddownload(request):
 	uploaded_file = request.FILES["nrmlimg"]
 	fs=FileSystemStorage()
 	fs.save(uploaded_file.name,uploaded_file)
-	path = r'C:\Users\hp\Projects\my_first_project\media\\'+ uploaded_file.name;
+	path = os.path.join(settings.MEDIA_ROOT, uploaded_file.name)
 	img = uploaded_file.name
 	image = Image.open(path, 'r')
 	data = request.POST["msg"]
@@ -186,7 +186,7 @@ def encryptanddownload(request):
 	name = request.POST["saveasname"]
 	extenstion = request.POST["extension"]
 	new_img_name = name+extenstion
-	path = r'C:\Users\hp\Projects\my_first_project\static\\'+new_img_name;
+	path = os.path.join(settings.BASE_DIR, 'static', new_img_name)
 	
 	newimg.save(path, str(new_img_name.split(".")[1].upper()))
 	
@@ -196,7 +196,7 @@ def encryptandsend(request):
 	uploaded_file = request.FILES["nrmlimg"]
 	fs=FileSystemStorage()
 	fs.save(uploaded_file.name,uploaded_file)
-	path = r'C:\Users\hp\Projects\my_first_project\media\\'+ uploaded_file.name;
+	path = os.path.join(settings.BASE_DIR, 'static', uploaded_file.name)
 	img = uploaded_file.name
 	image = Image.open(path, 'r')
 
@@ -243,7 +243,7 @@ def encryptandsend(request):
 	name = request.POST["saveasname"]
 	extenstion = request.POST["extension"]
 	new_img_name = name+extenstion
-	path = r'C:\Users\hp\Projects\my_first_project\static\\'+new_img_name;
+	path = os.path.join(settings.BASE_DIR, 'static', new_img_name)
 	
 	newimg.save(path, str(new_img_name.split(".")[1].upper()))
 	posting = encrypted_data(sendby=sendby,sendto=sendto,nrmlimg=uploaded_file.name,msg=data,sensitivity=cryptographic_algorithm,secret_key=secret_key,encryimg=new_img_name)
@@ -255,7 +255,7 @@ def decryption(request):
     uploaded_file = request.FILES["stignoimg"]
     fs=FileSystemStorage()
     fs.save(uploaded_file.name,uploaded_file)
-    img = r'C:\Users\hp\Projects\my_first_project\media\\'+ uploaded_file.name
+    img = os.path.join(settings.MEDIA_ROOT, uploaded_file.name)
     image = Image.open(img, 'r')
     data = ''
     imgdata = iter(image.getdata())
@@ -295,7 +295,7 @@ def decryption(request):
 def userdecryption(request):
     uploaded_file = request.POST["stignoimg"]
 
-    img = r'C:\Users\hp\Projects\my_first_project\static' + "\\"+uploaded_file
+    img = os.path.join(settings.BASE_DIR, 'static', uploaded_file)
 	
     image = Image.open(img, 'r')
  
