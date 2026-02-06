@@ -1,8 +1,10 @@
 django==6.0.2
 psycopg2-binary
+dj-database-url
 Pillow
 py3rijndael
 pycryptodome
 legacy-cgi
 setuptools
 gunicorn
+whitenoise
