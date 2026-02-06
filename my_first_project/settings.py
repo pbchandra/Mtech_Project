@@ -25,7 +25,7 @@ SECRET_KEY = ')%d@q&p-3z_9!w(s2on0c2_)d1l8ybulppa=0qe^0v120@_t^a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mtech-project.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
